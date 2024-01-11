@@ -1,10 +1,12 @@
-package WeGoTogether.wegotogether.util;
+package WeGoTogether.wegotogether.security;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @RequiredArgsConstructor
@@ -12,7 +14,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfig extends WebSecurityConfigurerAdapter{
 
 
-    //private final JwtTokenProvider jwtTokenProvider;
+    private final JwtProvider jwtProvider;
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
@@ -31,12 +33,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
                 //말고 그냥 들어오는 모든 요청 거절
                 .anyRequest().denyAll()
                 .and()
-                // + 토큰에 저장된 유저정보를 활용하여야 하기 때문에 CustomUserDetailService 클래스를 생성합니다.
+
+                 // 토큰을 활용하면 세션이 필요 없으므로 STATELESS로 설정하여 Session을 사용하지 않는다.
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and();
-                //.addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider),
-        //      UsernamePasswordAuthenticationFilter.class); // JwtAuthenticationFilter를 UsernamePasswordAuthenticationFilter 전에 넣는다
+                .and()
+                .addFilterBefore(new JwtAuthenticationFilter(jwtProvider),
+                  UsernamePasswordAuthenticationFilter.class); // JwtAuthenticationFilter를 UsernamePasswordAuthenticationFilter 전에 넣는다
+    }
 
-
+    //BCcryt 암호화
+    @Bean
+    public BCryptPasswordEncoder bCryptPasswordEncoder() {
+        return new BCryptPasswordEncoder();
     }
 }

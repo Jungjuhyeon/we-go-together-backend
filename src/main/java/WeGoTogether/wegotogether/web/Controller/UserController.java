@@ -4,6 +4,8 @@ import WeGoTogether.wegotogether.ApiPayload.ApiResponse;
 import WeGoTogether.wegotogether.converter.UserConverter;
 import WeGoTogether.wegotogether.domain.User;
 import WeGoTogether.wegotogether.service.UserService;
+import WeGoTogether.wegotogether.web.dto.RefreshTokenReq;
+import WeGoTogether.wegotogether.web.dto.RefreshTokenRes;
 import WeGoTogether.wegotogether.web.dto.UserDtoReq;
 import WeGoTogether.wegotogether.web.dto.UserDtoRes;
 import lombok.RequiredArgsConstructor;
@@ -32,4 +34,14 @@ public class UserController {
     public ApiResponse<UserDtoRes.userLoginRes> login(@RequestBody @Valid UserDtoReq.userLoginReq request) throws Exception {
         return ApiResponse.onSuccess(userService.login(request));
     }
+
+   @ResponseBody
+   @PostMapping("/token")
+   public ApiResponse<RefreshTokenRes> login(@RequestBody RefreshTokenReq request) throws Exception {
+        String accesstoken = userService.invaildToken(request);
+       return ApiResponse.onSuccess(UserConverter.refreshTokenRes(accesstoken));
+   }
+
+
+
 }

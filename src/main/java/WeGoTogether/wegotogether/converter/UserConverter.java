@@ -2,6 +2,7 @@ package WeGoTogether.wegotogether.converter;
 
 import WeGoTogether.wegotogether.domain.User;
 import WeGoTogether.wegotogether.security.JwtProvider;
+import WeGoTogether.wegotogether.web.dto.RefreshTokenRes;
 import WeGoTogether.wegotogether.web.dto.UserDtoReq;
 import WeGoTogether.wegotogether.web.dto.UserDtoRes;
 import lombok.RequiredArgsConstructor;
@@ -23,11 +24,18 @@ public class UserConverter {
     }
 
     //로그인 응답
-    public static UserDtoRes.userLoginRes userLoginRes(User user, String jwt){
+    public static UserDtoRes.userLoginRes userLoginRes(User user, String accessToken, String refreshToken){
         return UserDtoRes.userLoginRes.builder()
                 .userId(user.getId())
-                .accessToken(jwt)
+                .accessToken(accessToken)
+                .refreshToken(refreshToken)
                 .createdAt(LocalDateTime.now())
+                .build();
+    }
+
+    public static RefreshTokenRes refreshTokenRes(String acceesToken){
+        return RefreshTokenRes.builder()
+                .accessToken(acceesToken)
                 .build();
     }
 

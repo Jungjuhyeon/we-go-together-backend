@@ -24,6 +24,9 @@ public enum ErrorStatus implements BaseErrorCode {
     USER_PHONE_DUPLICATE(HttpStatus.BAD_REQUEST, "USER4004", "이미 등록된 휴대폰 번호 입니다."),
 
 
+    //JWT Error
+    JWT_EMPTY(HttpStatus.UNAUTHORIZED,"JWT4100","JWT 토큰을 넣어주세요."),
+    JWT_INVALID(HttpStatus.UNAUTHORIZED,"JWT4101","다시 로그인 해주세요."),
     ;
 
 

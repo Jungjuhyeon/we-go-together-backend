@@ -1,11 +1,14 @@
 package WeGoTogether.wegotogether.service;
 
+import WeGoTogether.wegotogether.ApiPayload.code.exception.Handler.JwtHandler;
 import WeGoTogether.wegotogether.ApiPayload.code.exception.Handler.UserHandler;
 import WeGoTogether.wegotogether.ApiPayload.code.status.ErrorStatus;
 import WeGoTogether.wegotogether.converter.UserConverter;
 import WeGoTogether.wegotogether.domain.User;
 import WeGoTogether.wegotogether.repository.UserRepository;
 import WeGoTogether.wegotogether.security.JwtProvider;
+import WeGoTogether.wegotogether.web.dto.RefreshTokenReq;
+import WeGoTogether.wegotogether.web.dto.RefreshTokenRes;
 import WeGoTogether.wegotogether.web.dto.UserDtoReq;
 import WeGoTogether.wegotogether.web.dto.UserDtoRes;
 import lombok.RequiredArgsConstructor;
@@ -70,12 +73,37 @@ public class UserService  {
             throw new UserHandler(ErrorStatus.USER_NOT_FOUND);
         }
 
-        String jwt = jwtProvider.createToken(user.getId(), "USER");
+        //토큰 생성
+        String accessToken = jwtProvider.createAccessToken(user.getId(), "USER");
+        String refreshToken = jwtProvider.createRefreshToken();
 
-        return UserConverter.userLoginRes(user,jwt);
+        // RefreshToken을 사용자 엔터티에 저장
+        user.setRefreshToken(refreshToken);
+        userRepository.save(user);
 
-
+        return UserConverter.userLoginRes(user,accessToken,refreshToken);
     }
+
+    //refresh토큰 유효성 검사 + access token 재발급
+    public String invaildToken(RefreshTokenReq request){
+        String refreshToken = request.getRefreshToken();
+
+        Long userId = jwtProvider.getUserPk(request.getAccessToken());
+        User user  = userRepository.findById(userId) .orElseThrow(() ->  new UserHandler(ErrorStatus.USER_NOT_FOUND));
+
+        // refreshtoken 유효성검사
+        if(jwtProvider.validateToken(user.getRefreshToken())){
+
+            String accessToken = jwtProvider.createAccessToken(userId,"USER");
+
+            return accessToken;
+        }
+        else{
+            throw new JwtHandler(ErrorStatus.JWT_INVALID);
+        }
+    }
+
+
 
 
 

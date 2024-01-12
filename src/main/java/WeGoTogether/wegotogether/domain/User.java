@@ -9,6 +9,7 @@ import org.hibernate.annotations.DynamicUpdate;
 import javax.persistence.*;
 
 @Entity
+@Setter
 @Getter
 @DynamicUpdate
 @DynamicInsert
@@ -29,6 +30,8 @@ public class User extends BaseEntity {
 
     @Column(nullable = false)
     public String phoneNum;
+
+    public String refreshToken;
 
     @Enumerated(EnumType.STRING)
     @Column(columnDefinition = "VARCHAR(15) DEFAULT 'ACTIVE'")

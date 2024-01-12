@@ -27,6 +27,7 @@ public class UserDtoRes {
 
         public Long userId;
         public String accessToken;
+        public String refreshToken;
         public LocalDateTime createdAt;
     }
 }

@@ -22,6 +22,7 @@ public class JpaUserDetailsService implements UserDetailsService {
                 () -> new UsernameNotFoundException("Invalid authentication!")
         );
 
-        return new CustomUserDetails(user);
+        return new CustomUserDetail(user);	// 위에서 생성한 CustomUserDetails Class
     }
 }
+

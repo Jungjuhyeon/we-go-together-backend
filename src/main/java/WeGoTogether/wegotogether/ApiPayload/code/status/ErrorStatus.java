@@ -19,9 +19,13 @@ public enum ErrorStatus implements BaseErrorCode {
     // User Error
 
     USER_NOT_FOUND(HttpStatus.BAD_REQUEST, "USER4001", "사용자가 없습니다."),
-    USER_PASSWORD_ERROR(HttpStatus.BAD_REQUEST, "USER4002", "패스워드를 확인하세요.(최소8자,최대20자,영문자,숫자 모두 포함되어야 합니다."),
-    USER_EMAIL_DUPLICATE(HttpStatus.BAD_REQUEST, "USER4003", "이미 등록된 이메일 입니다."),
-    USER_PHONE_DUPLICATE(HttpStatus.BAD_REQUEST, "USER4004", "이미 등록된 휴대폰 번호 입니다."),
+    USER_ID_PASSWORD_FOUND(HttpStatus.BAD_REQUEST, "USER4002", "아이디 또는 비밀번호가 잘못되었습니다."),
+    USER_PASSWORD_ERROR(HttpStatus.BAD_REQUEST, "USER4003", "패스워드를 확인하세요.(최소8자,최대20자,영문자,숫자 모두 포함되어야 합니다."),
+    USER_EMAIL_DUPLICATE(HttpStatus.BAD_REQUEST, "USER4004", "이미 등록된 이메일 입니다."),
+    USER_PHONE_DUPLICATE(HttpStatus.BAD_REQUEST, "USER4005", "이미 등록된 휴대폰 번호 입니다."),
+    USER_PASSWORD_NONEQULE(HttpStatus.BAD_REQUEST, "USER4006", "비밀번호가 일치하지 않습니다."),
+    USER_PASSWORD_EXIST(HttpStatus.BAD_REQUEST, "USER4007", "이전 비밀번호와 일치합니다."),
+
 
 
     //JWT Error

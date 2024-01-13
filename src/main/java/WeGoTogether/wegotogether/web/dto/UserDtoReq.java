@@ -14,20 +14,27 @@ public class UserDtoReq {
     public static class userRegisterReq{
 
         @Email
-        public String email;
+        private String email;
         @NotBlank
-        public String password;
+        private String password;
         @Phone
-        public String phoneNum;
+        private String phoneNum;
 
     }
-
     @Getter
     public static class userLoginReq{
         @Email
-        public String email;
+        private String email;
         @NotBlank
-        public String password;
+        private String password;
+    }
 
+    @Getter
+    @Setter
+    public static class passwordRestoreReq{
+        @NotBlank
+        private String password;
+        @NotBlank
+        private String passwordCheck;
     }
 }

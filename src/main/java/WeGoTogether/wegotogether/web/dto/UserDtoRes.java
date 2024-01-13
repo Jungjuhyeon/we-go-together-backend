@@ -17,17 +17,25 @@ public class UserDtoRes {
         public LocalDateTime createdAt;
 
     }
-
     @Getter
     @Setter
     @Builder
     @NoArgsConstructor
     @AllArgsConstructor
     public static class userLoginRes{
-
-        public Long userId;
-        public String accessToken;
-        public String refreshToken;
-        public LocalDateTime createdAt;
+        private Long userId;
+        private String accessToken;
+        private String refreshToken;
+        private LocalDateTime createdAt;
     }
+    @Getter
+    @Setter
+    @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class passwordRestoreRes{
+        private Long userId;
+        private LocalDateTime createdAt;
+    }
+
 }

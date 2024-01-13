@@ -1,6 +1,7 @@
 package WeGoTogether.wegotogether.security;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -8,7 +9,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-
+@Slf4j
 @RequiredArgsConstructor
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter{
@@ -25,6 +26,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 
                 //회원관련 api는 비밀번호 재설정 빼고는 토큰 필요 x
                 .antMatchers("/wego/users/password-restore").hasRole("USER")
+
                 .antMatchers("/wego/users/**").permitAll()
                 // /admin으로 시작하는 요청은 ADMIN 권한이 있는 유저에게만 허용
                 .antMatchers("/wego/admin/**").hasRole("ADMIN")
@@ -39,6 +41,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
                 .and()
                 .addFilterBefore(new JwtAuthenticationFilter(jwtProvider),
                   UsernamePasswordAuthenticationFilter.class); // JwtAuthenticationFilter를 UsernamePasswordAuthenticationFilter 전에 넣는다
+
     }
 
     //BCcryt 암호화

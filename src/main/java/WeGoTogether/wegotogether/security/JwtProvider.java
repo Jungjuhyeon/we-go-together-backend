@@ -8,11 +8,14 @@ import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
@@ -22,6 +25,7 @@ import java.util.List;
 
 // 토큰을 생성하고 검증하는 클래스입니다.
 // 해당 컴포넌트는 필터클래스에서 사전 검증을 거칩니다.
+@Slf4j
 @RequiredArgsConstructor
 @Component
 public class JwtProvider {
@@ -71,23 +75,21 @@ public class JwtProvider {
     public Authentication getAuthentication(String token) {
         String userPk = String.valueOf(this.getUserPk(token)); //long -> string으로 형변환
         UserDetails userDetails = jpaUserDetailsService.loadUserByUsername(userPk);
+        System.out.println(userDetails.getAuthorities());
         return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
     }
 
     // 토큰에서 회원 userid 추출
     public Long getUserPk(String token) {
-        Claims claims = Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody();
-        return Long.parseLong(claims.get("userId", String.class));
+        //이는 정수형이므로 long으로 변환하여 반환
+        return Long.valueOf(Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody().get("userId", Integer.class));
     }
+
 
     // Request의 Header에서 token 값을 가져옵니다. "ACCESS-TOKEN" : "TOKEN값'
-    public String resolveAcceessToken(HttpServletRequest request) {
+    public String resolveAcceessToken() {
+        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest();
         return request.getHeader("ACCESS-TOKEN");
-    }
-
-    // Request의 Header에서 token 값을 가져옵니다. "REFRESH-TOKEN" : "TOKEN값'
-    public String resolveRefreshToken(HttpServletRequest request) {
-        return request.getHeader("REFRESH-TOKEN");
     }
 
     // 토큰의 유효성 + 만료일자 확인
@@ -100,7 +102,9 @@ public class JwtProvider {
         }
     }
 
-
-
+    public Long getUserID(){
+        String token = resolveAcceessToken();
+        return getUserPk(token);
+    }
 
 }

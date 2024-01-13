@@ -1,5 +1,6 @@
 package WeGoTogether.wegotogether.domain;
 
+import WeGoTogether.wegotogether.domain.Enum.UserRole;
 import WeGoTogether.wegotogether.domain.Enum.UserState;
 import WeGoTogether.wegotogether.domain.common.BaseEntity;
 import lombok.*;
@@ -25,7 +26,7 @@ public class User extends BaseEntity {
     @Column(nullable = false,length = 20)
     public String email;
 
-    @Column(nullable = false)
+    @Column(nullable = false, name = "pw")
     public String pw;
 
     @Column(nullable = false)
@@ -36,6 +37,10 @@ public class User extends BaseEntity {
     @Enumerated(EnumType.STRING)
     @Column(columnDefinition = "VARCHAR(15) DEFAULT 'ACTIVE'")
     public UserState status;
+
+    @Enumerated(EnumType.STRING)
+    @Column(columnDefinition = "VARCHAR(15) DEFAULT 'ROLE_USER'")
+    public UserRole role;
 
 
 

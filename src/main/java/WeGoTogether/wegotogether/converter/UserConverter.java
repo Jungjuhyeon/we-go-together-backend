@@ -6,10 +6,11 @@ import WeGoTogether.wegotogether.web.dto.RefreshTokenRes;
 import WeGoTogether.wegotogether.web.dto.UserDtoReq;
 import WeGoTogether.wegotogether.web.dto.UserDtoRes;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
-
+@Slf4j
 @Component
 @RequiredArgsConstructor
 public class UserConverter {
@@ -33,9 +34,18 @@ public class UserConverter {
                 .build();
     }
 
+    //accessToken 재발급 응답
     public static RefreshTokenRes refreshTokenRes(String acceesToken){
         return RefreshTokenRes.builder()
                 .accessToken(acceesToken)
+                .build();
+    }
+
+    //passwordRestore 응답
+    public static UserDtoRes.passwordRestoreRes passwordRestoreRes(User user){
+        return UserDtoRes.passwordRestoreRes.builder()
+                .userId(user.getId())
+                .createdAt(user.getCreatedAt())
                 .build();
     }
 

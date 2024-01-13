@@ -6,5 +6,5 @@ import lombok.*;
 @Setter
 @Getter
 public class RefreshTokenRes {
-    public String accessToken;
+    private String accessToken;
 }

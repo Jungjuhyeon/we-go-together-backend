@@ -7,6 +7,6 @@ import lombok.NoArgsConstructor;
 
 @Getter
 public class RefreshTokenReq {
-    public String accessToken;
-    public String refreshToken;
+    private String accessToken;
+    private String refreshToken;
 }

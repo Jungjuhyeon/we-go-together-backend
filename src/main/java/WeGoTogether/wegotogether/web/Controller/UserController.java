@@ -5,15 +5,16 @@ import WeGoTogether.wegotogether.converter.UserConverter;
 import WeGoTogether.wegotogether.domain.User;
 import WeGoTogether.wegotogether.security.JwtProvider;
 import WeGoTogether.wegotogether.service.UserService;
-import WeGoTogether.wegotogether.web.dto.RefreshTokenReq;
 import WeGoTogether.wegotogether.web.dto.RefreshTokenRes;
 import WeGoTogether.wegotogether.web.dto.UserDtoReq;
 import WeGoTogether.wegotogether.web.dto.UserDtoRes;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
+
+
 @Slf4j
 @RestController
 @RequiredArgsConstructor
@@ -37,11 +38,10 @@ public class UserController {
         return ApiResponse.onSuccess(userService.login(request));
     }
 
-   @ResponseBody
    @PostMapping("/token")
-   public ApiResponse<RefreshTokenRes> login(@RequestBody RefreshTokenReq request){
-        String accesstoken = userService.invaildToken(request);
-       return ApiResponse.onSuccess(UserConverter.refreshTokenRes(accesstoken));
+   public ApiResponse<RefreshTokenRes> login(@RequestHeader("Authorization") String refreshToken) {
+        String accessToken = userService.inVaildToken(refreshToken);
+       return ApiResponse.onSuccess(UserConverter.refreshTokenRes(accessToken));
    }
 
     @ResponseBody

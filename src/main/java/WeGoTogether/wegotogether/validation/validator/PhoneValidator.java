@@ -1,17 +1,18 @@
 package WeGoTogether.wegotogether.validation.validator;
 
 import WeGoTogether.wegotogether.validation.annotation.Phone;
+import jakarta.validation.ConstraintValidator;
+import jakarta.validation.ConstraintValidatorContext;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
-import javax.validation.ConstraintValidator;
-import javax.validation.ConstraintValidatorContext;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 @Component
 @RequiredArgsConstructor
-public class PhoneValidator implements ConstraintValidator<Phone, String>{
+public class PhoneValidator implements ConstraintValidator<Phone, String> {
 
     //@Override
     //public void initialize(Phone phone) {

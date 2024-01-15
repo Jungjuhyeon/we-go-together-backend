@@ -3,11 +3,12 @@ package WeGoTogether.wegotogether.domain;
 import WeGoTogether.wegotogether.domain.Enum.UserRole;
 import WeGoTogether.wegotogether.domain.Enum.UserState;
 import WeGoTogether.wegotogether.domain.common.BaseEntity;
+import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
-import javax.persistence.*;
+
 
 @Entity
 @Setter
@@ -32,7 +33,6 @@ public class User extends BaseEntity {
     @Column(nullable = false)
     public String phoneNum;
 
-    public String refreshToken;
 
     @Enumerated(EnumType.STRING)
     @Column(columnDefinition = "VARCHAR(15) DEFAULT 'ACTIVE'")

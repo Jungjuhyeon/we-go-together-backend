@@ -1,7 +1,7 @@
-package WeGoTogether.wegotogether.ApiPayload.code.status;
+package WeGoTogether.wegotogether.constant.enums;
 
-import WeGoTogether.wegotogether.ApiPayload.code.BaseErrorCode;
-import WeGoTogether.wegotogether.ApiPayload.code.ErrorReasonDTO;
+import WeGoTogether.wegotogether.constant.code.BaseErrorCode;
+import WeGoTogether.wegotogether.constant.code.ErrorReasonDTO;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.springframework.http.HttpStatus;

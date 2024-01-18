@@ -1,8 +1,7 @@
 package WeGoTogether.wegotogether.security;
 
-import WeGoTogether.wegotogether.ApiPayload.ApiResponse;
-import WeGoTogether.wegotogether.ApiPayload.code.exception.Handler.JwtHandler;
-import WeGoTogether.wegotogether.ApiPayload.code.status.ErrorStatus;
+import WeGoTogether.wegotogether.constant.ApiResponse;
+import WeGoTogether.wegotogether.constant.enums.ErrorStatus;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

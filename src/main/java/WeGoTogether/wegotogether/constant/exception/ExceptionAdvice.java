@@ -1,9 +1,9 @@
-package WeGoTogether.wegotogether.ApiPayload.code.exception;
+package WeGoTogether.wegotogether.constant.exception;
 
 
-import WeGoTogether.wegotogether.ApiPayload.ApiResponse;
-import WeGoTogether.wegotogether.ApiPayload.code.ErrorReasonDTO;
-import WeGoTogether.wegotogether.ApiPayload.code.status.ErrorStatus;
+import WeGoTogether.wegotogether.constant.ApiResponse;
+import WeGoTogether.wegotogether.constant.code.ErrorReasonDTO;
+import WeGoTogether.wegotogether.constant.enums.ErrorStatus;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.ConstraintViolationException;
 import lombok.extern.slf4j.Slf4j;
@@ -20,9 +20,7 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 

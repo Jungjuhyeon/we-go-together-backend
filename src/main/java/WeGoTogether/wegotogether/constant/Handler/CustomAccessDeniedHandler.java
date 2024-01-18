@@ -1,6 +1,6 @@
-package WeGoTogether.wegotogether.security.handler;
+package WeGoTogether.wegotogether.constant.Handler;
 
-import WeGoTogether.wegotogether.ApiPayload.code.status.ErrorStatus;
+import WeGoTogether.wegotogether.constant.enums.ErrorStatus;
 import WeGoTogether.wegotogether.security.JwtAuthenticationFilter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

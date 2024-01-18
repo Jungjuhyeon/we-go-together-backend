@@ -1,10 +1,9 @@
 package WeGoTogether.wegotogether.member.model;
 
-import WeGoTogether.wegotogether.domain.common.BaseEntity;
+import WeGoTogether.wegotogether.constant.entity.BaseEntity;
 import WeGoTogether.wegotogether.member.model.Enum.UserRole;
 import WeGoTogether.wegotogether.member.model.Enum.UserState;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;

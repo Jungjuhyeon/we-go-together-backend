@@ -1,6 +1,6 @@
 package WeGoTogether.wegotogether.member.Controller;
 
-import WeGoTogether.wegotogether.ApiPayload.ApiResponse;
+import WeGoTogether.wegotogether.constant.ApiResponse;
 import WeGoTogether.wegotogether.member.converter.UserConverter;
 import WeGoTogether.wegotogether.member.model.User;
 import WeGoTogether.wegotogether.security.JwtProvider;

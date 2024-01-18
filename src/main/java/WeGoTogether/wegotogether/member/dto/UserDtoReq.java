@@ -1,9 +1,7 @@
 package WeGoTogether.wegotogether.member.dto;
 
-import WeGoTogether.wegotogether.validation.annotation.Phone;
-import jakarta.validation.constraints.Email;
+
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Pattern;
 import lombok.Getter;
 import lombok.Setter;
 

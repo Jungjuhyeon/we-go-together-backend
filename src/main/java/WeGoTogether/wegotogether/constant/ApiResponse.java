@@ -1,7 +1,7 @@
-package WeGoTogether.wegotogether.ApiPayload;
+package WeGoTogether.wegotogether.constant;
 
-import WeGoTogether.wegotogether.ApiPayload.code.BaseCode;
-import WeGoTogether.wegotogether.ApiPayload.code.status.SuccessStatus;
+import WeGoTogether.wegotogether.constant.code.BaseCode;
+import WeGoTogether.wegotogether.constant.enums.SuccessStatus;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;

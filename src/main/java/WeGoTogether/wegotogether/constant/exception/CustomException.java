@@ -1,7 +1,7 @@
-package WeGoTogether.wegotogether.ApiPayload.code.exception;
+package WeGoTogether.wegotogether.constant.exception;
 
-import WeGoTogether.wegotogether.ApiPayload.code.BaseErrorCode;
-import WeGoTogether.wegotogether.ApiPayload.code.ErrorReasonDTO;
+import WeGoTogether.wegotogether.constant.code.BaseErrorCode;
+import WeGoTogether.wegotogether.constant.code.ErrorReasonDTO;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 

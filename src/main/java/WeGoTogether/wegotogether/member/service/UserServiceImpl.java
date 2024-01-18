@@ -1,8 +1,8 @@
 package WeGoTogether.wegotogether.member.service;
 
-import WeGoTogether.wegotogether.ApiPayload.code.exception.Handler.JwtHandler;
-import WeGoTogether.wegotogether.ApiPayload.code.exception.Handler.UserHandler;
-import WeGoTogether.wegotogether.ApiPayload.code.status.ErrorStatus;
+import WeGoTogether.wegotogether.constant.Handler.JwtHandler;
+import WeGoTogether.wegotogether.constant.Handler.UserHandler;
+import WeGoTogether.wegotogether.constant.enums.ErrorStatus;
 import WeGoTogether.wegotogether.member.converter.UserConverter;
 import WeGoTogether.wegotogether.member.model.User;
 import WeGoTogether.wegotogether.member.repository.UserRepository;

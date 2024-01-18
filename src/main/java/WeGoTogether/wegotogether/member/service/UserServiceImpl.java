@@ -1,9 +1,14 @@
 package WeGoTogether.wegotogether.member.service;
 
+import WeGoTogether.wegotogether.constant.ApiResponse;
+import WeGoTogether.wegotogether.constant.Handler.EmailError;
 import WeGoTogether.wegotogether.constant.Handler.JwtHandler;
 import WeGoTogether.wegotogether.constant.Handler.UserHandler;
 import WeGoTogether.wegotogether.constant.enums.ErrorStatus;
+import WeGoTogether.wegotogether.email.dto.EmailDtoReq;
+import WeGoTogether.wegotogether.email.service.EmailService;
 import WeGoTogether.wegotogether.member.converter.UserConverter;
+import WeGoTogether.wegotogether.member.model.Enum.UserState;
 import WeGoTogether.wegotogether.member.model.User;
 import WeGoTogether.wegotogether.member.repository.UserRepository;
 import WeGoTogether.wegotogether.security.JwtProvider;
@@ -32,9 +37,10 @@ public class UserServiceImpl implements UserService {
     public final PasswordEncoder passwordEncoder;
     public final JwtProvider jwtProvider;
     public final RedisUtil redisUtil;
+    public final EmailService emailService;
 
     @Override
-    public User toUser(UserDtoReq.userRegisterReq request){
+    public User signUp(UserDtoReq.userRegisterReq request){
 
         // 이메일 형식 확인
         validateEmail(request.getEmail());
@@ -64,10 +70,14 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDtoRes.userLoginRes login(UserDtoReq.userLoginReq request) {
-
         //해당 Email로 아이디 찾기 - 아이디 불일치
         User user = userRepository.findByEmail(request.getEmail())
                 .orElseThrow(() -> new UserHandler(ErrorStatus.USER_ID_PASSWORD_FOUND));
+
+        // 인증 확인
+        if(user.getStatus() == UserState.valueOf("NONACTIVE")){
+            throw new EmailError(ErrorStatus._UNAUTHORIZED);
+        }
 
         //비밀번호 불일치
         if (!passwordEncoder.matches(request.getPassword(), user.getPw())) {
@@ -128,6 +138,27 @@ public class UserServiceImpl implements UserService {
         return user;
     }
 
+    //이메일 인증 전송
+    @Override
+    public void sendEmailAuth(EmailDtoReq.emailAuthReq request){
+
+        User user = userRepository.findByEmail(request.getEmail()).orElseThrow(()-> new UserHandler(ErrorStatus.USER_NOT_FOUND));
+        String title = "이메일 인증안내";
+
+        emailService.sendMail(request.getEmail(),title);
+    }
+    @Override
+    //이메일 인증이 유효한지 검사
+    public void verifyEmail(String certificationNumber, String email) {
+
+        User user = userRepository.findByEmail(email).orElseThrow(()-> new UserHandler(ErrorStatus.USER_NOT_FOUND));
+
+        String authCode = redisUtil.getData("AuthCode_"+email);
+        if(!certificationNumber.equals(authCode)){
+            throw new EmailError(ErrorStatus.EMAIL_VERIFY_ERROR);
+        }
+        user.setStatus(UserState.valueOf("ACTIVE"));
+    }
 
     // 비밀번호 정규식 확인 함수
     private void validatePassword(String password) {
@@ -155,5 +186,6 @@ public class UserServiceImpl implements UserService {
             throw new UserHandler(ErrorStatus.USER_PHONE_ERROR);
         }
     }
+
 
 }

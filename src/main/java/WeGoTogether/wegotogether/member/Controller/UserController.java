@@ -1,6 +1,9 @@
 package WeGoTogether.wegotogether.member.Controller;
 
 import WeGoTogether.wegotogether.constant.ApiResponse;
+import WeGoTogether.wegotogether.constant.enums.SuccessStatus;
+import WeGoTogether.wegotogether.email.dto.EmailDtoReq;
+import WeGoTogether.wegotogether.email.service.EmailService;
 import WeGoTogether.wegotogether.member.converter.UserConverter;
 import WeGoTogether.wegotogether.member.model.User;
 import WeGoTogether.wegotogether.security.JwtProvider;
@@ -23,12 +26,13 @@ public class UserController {
 
     private final UserServiceImpl userService;
     private final JwtProvider jwtProvider;
+    private final EmailService emailService;
 
     //test
     @ResponseBody
     @PostMapping("")
     public ApiResponse<UserDtoRes.userRegisterRes> signUp(@RequestBody @Valid UserDtoReq.userRegisterReq request) {
-        User user = userService.toUser(request);
+        User user = userService.signUp(request);
         return ApiResponse.onSuccess(UserConverter.userDtoRes(user));
     }
 
@@ -50,6 +54,22 @@ public class UserController {
         Long userId= jwtProvider.getUserID();
         User user = userService.pwRestore(request,userId);
         return ApiResponse.onSuccess(UserConverter.passwordRestoreRes(user));
+    }
+
+    //이메일 인증요청
+    @ResponseBody
+    @PostMapping("/email/request")
+    public ApiResponse<SuccessStatus> sendEmailAuth(@RequestBody @Valid EmailDtoReq.emailAuthReq request) {
+        userService.sendEmailAuth(request);
+        return ApiResponse.onSuccessWithoutResult(SuccessStatus._OK);
+    }
+
+
+    @GetMapping("/email/verify")
+    public ApiResponse<SuccessStatus> verifyCertificationNumber(@RequestParam(name = "certificationNumber") String certificationNumber, @RequestParam(name = "email") String email) {
+
+        userService.verifyEmail(certificationNumber,email);
+        return ApiResponse.onSuccess(SuccessStatus._OK);
     }
 
 }

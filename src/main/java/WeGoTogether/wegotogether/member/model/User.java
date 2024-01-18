@@ -34,7 +34,7 @@ public class User extends BaseEntity {
 
 
     @Enumerated(EnumType.STRING)
-    @Column(columnDefinition = "VARCHAR(15) DEFAULT 'ACTIVE'")
+    @Column(columnDefinition = "VARCHAR(15) DEFAULT 'NONACTIVE'")
     public UserState status;
 
     @Enumerated(EnumType.STRING)

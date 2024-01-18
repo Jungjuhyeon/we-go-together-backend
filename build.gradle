@@ -49,6 +49,11 @@ dependencies {
 
 	implementation 'org.json:json:20210307'
 
+	//naver- mail
+	implementation 'org.springframework.boot:spring-boot-starter-mail'
+
+
+
 
 }
 

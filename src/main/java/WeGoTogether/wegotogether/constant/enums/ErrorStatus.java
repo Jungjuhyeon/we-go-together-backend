@@ -37,6 +37,11 @@ public enum ErrorStatus implements BaseErrorCode {
     JWT_BAD(HttpStatus.UNAUTHORIZED,"JWT4102","JWT 토큰이 잘못되었습니다."),
     JWT_REFRESHTOKEN_NOT_MATCH(HttpStatus.UNAUTHORIZED,"JWT4103","RefreshToken이 일치하지 않습니다."),
     JWT_AUTHORIZATION_FAILED(HttpStatus.UNAUTHORIZED,"JWT4104","권한이 없습니다."),
+
+
+
+    NO_SUCH_ALGORITHM(HttpStatus.INTERNAL_SERVER_ERROR, "ERROR5001", "알고리즘 사용 불가능합니다."),
+    EMAIL_VERIFY_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "ERROR5002", "인증이 만료됐습니다."),
     ;
 
 

@@ -1,4 +1,4 @@
-package WeGoTogether.wegotogether.web.dto;
+package WeGoTogether.wegotogether.member.dto;
 
 import lombok.*;
 

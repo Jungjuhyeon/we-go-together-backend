@@ -1,4 +1,4 @@
-package WeGoTogether.wegotogether.web.dto;
+package WeGoTogether.wegotogether.member.dto;
 
 import lombok.*;
 
@@ -11,31 +11,34 @@ public class UserDtoRes {
     @Builder
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class userRegisterRes{
+    public static class userRegisterRes {
 
         public Long userId;
         public LocalDateTime createdAt;
 
     }
+
     @Getter
     @Setter
     @Builder
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class userLoginRes{
+    public static class userLoginRes {
         private Long userId;
         private String accessToken;
         private String refreshToken;
         private LocalDateTime createdAt;
     }
+
     @Getter
     @Setter
     @Builder
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class passwordRestoreRes{
+    public static class passwordRestoreRes {
         private Long userId;
         private LocalDateTime createdAt;
     }
 
 }
+

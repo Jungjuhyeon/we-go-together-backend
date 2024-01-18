@@ -1,13 +1,13 @@
-package WeGoTogether.wegotogether.web.Controller;
+package WeGoTogether.wegotogether.member.Controller;
 
 import WeGoTogether.wegotogether.ApiPayload.ApiResponse;
-import WeGoTogether.wegotogether.converter.UserConverter;
-import WeGoTogether.wegotogether.domain.User;
+import WeGoTogether.wegotogether.member.converter.UserConverter;
+import WeGoTogether.wegotogether.member.model.User;
 import WeGoTogether.wegotogether.security.JwtProvider;
-import WeGoTogether.wegotogether.service.UserService;
-import WeGoTogether.wegotogether.web.dto.RefreshTokenRes;
-import WeGoTogether.wegotogether.web.dto.UserDtoReq;
-import WeGoTogether.wegotogether.web.dto.UserDtoRes;
+import WeGoTogether.wegotogether.member.service.UserServiceImpl;
+import WeGoTogether.wegotogether.member.dto.RefreshTokenRes;
+import WeGoTogether.wegotogether.member.dto.UserDtoReq;
+import WeGoTogether.wegotogether.member.dto.UserDtoRes;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/wego/users")
 public class UserController {
 
-    private final UserService userService;
+    private final UserServiceImpl userService;
     private final JwtProvider jwtProvider;
 
     //test

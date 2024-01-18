@@ -1,8 +1,9 @@
-package WeGoTogether.wegotogether.web.dto;
+package WeGoTogether.wegotogether.member.dto;
 
 import WeGoTogether.wegotogether.validation.annotation.Phone;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -13,17 +14,17 @@ public class UserDtoReq {
     @Getter
     public static class userRegisterReq{
 
-        @Email
+        @NotBlank
         private String email;
         @NotBlank
         private String password;
-        @Phone
+        @NotBlank
         private String phoneNum;
 
     }
     @Getter
     public static class userLoginReq{
-        @Email
+        @NotBlank
         private String email;
         @NotBlank
         private String password;

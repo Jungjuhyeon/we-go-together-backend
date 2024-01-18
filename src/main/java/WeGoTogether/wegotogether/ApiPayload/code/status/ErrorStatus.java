@@ -21,10 +21,12 @@ public enum ErrorStatus implements BaseErrorCode {
     USER_NOT_FOUND(HttpStatus.BAD_REQUEST, "USER4001", "사용자가 없습니다."),
     USER_ID_PASSWORD_FOUND(HttpStatus.BAD_REQUEST, "USER4002", "아이디 또는 비밀번호가 잘못되었습니다."),
     USER_PASSWORD_ERROR(HttpStatus.BAD_REQUEST, "USER4003", "패스워드를 확인하세요.(최소8자,최대20자,영문자,숫자 모두 포함되어야 합니다."),
-    USER_EMAIL_DUPLICATE(HttpStatus.BAD_REQUEST, "USER4004", "이미 등록된 이메일 입니다."),
-    USER_PHONE_DUPLICATE(HttpStatus.BAD_REQUEST, "USER4005", "이미 등록된 휴대폰 번호 입니다."),
-    USER_PASSWORD_NONEQULE(HttpStatus.BAD_REQUEST, "USER4006", "비밀번호가 일치하지 않습니다."),
-    USER_PASSWORD_EXIST(HttpStatus.BAD_REQUEST, "USER4007", "이전 비밀번호와 일치합니다."),
+    USER_EMAIL_ERROR(HttpStatus.BAD_REQUEST, "USER4004" , "이메일 형식이 아닙니다."),
+    USER_EMAIL_DUPLICATE(HttpStatus.BAD_REQUEST, "USER4005", "이미 등록된 이메일 입니다."),
+    USER_PHONE_ERROR(HttpStatus.BAD_REQUEST, "USER4005", "***-****-**** 형식으로 작성해주세요."),
+    USER_PHONE_DUPLICATE(HttpStatus.BAD_REQUEST, "USER4006", "이미 등록된 휴대폰 번호 입니다."),
+    USER_PASSWORD_NONEQULE(HttpStatus.BAD_REQUEST, "USER4007", "비밀번호가 일치하지 않습니다."),
+    USER_PASSWORD_EXIST(HttpStatus.BAD_REQUEST, "USER4008", "이전 비밀번호와 일치합니다."),
 
 
 
@@ -34,6 +36,7 @@ public enum ErrorStatus implements BaseErrorCode {
     JWT_EXPIRED(HttpStatus.UNAUTHORIZED,"JWT4102","토큰이 만료되었습니다."),
     JWT_BAD(HttpStatus.UNAUTHORIZED,"JWT4102","JWT 토큰이 잘못되었습니다."),
     JWT_REFRESHTOKEN_NOT_MATCH(HttpStatus.UNAUTHORIZED,"JWT4103","RefreshToken이 일치하지 않습니다."),
+    JWT_AUTHORIZATION_FAILED(HttpStatus.UNAUTHORIZED,"JWT4104","권한이 없습니다."),
     ;
 
 

@@ -1,7 +1,6 @@
 package WeGoTogether.wegotogether.security;
 
-import WeGoTogether.wegotogether.service.CustomAccessDeniedHandler;
-import WeGoTogether.wegotogether.service.CustomAuthenticationEntryPoint;
+import WeGoTogether.wegotogether.security.handler.CustomAccessDeniedHandler;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
@@ -15,6 +14,7 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 @Configuration
 @EnableWebSecurity
@@ -24,9 +24,9 @@ public class SecurityConfig{
 
 
     private final JwtProvider jwtProvider;
-    private final RedisUtil redisUtil;
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+
         return http
                 .csrf(AbstractHttpConfigurer::disable)
                 //.cors(corsConfigurer -> corsConfigurer.configurationSource(corsConfigurationSource()))
@@ -35,26 +35,34 @@ public class SecurityConfig{
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests((requests) -> requests
                         // Have to Refactoring
-                        .requestMatchers("/wego/users/**").permitAll()
                         .requestMatchers("/wego/users/password-restore").hasRole("USER")
+                        .requestMatchers("/wego/users/token").hasAnyRole("USER", "ADMIN")
+                        .requestMatchers("/wego/users/**").permitAll()
                         .requestMatchers("/wego/users/admin/**").hasRole("ADMIN")
                         .requestMatchers("/wego/**").hasAnyRole("USER", "ADMIN")
                         .anyRequest().permitAll()
                 )
                 .httpBasic(Customizer.withDefaults())
                 .exceptionHandling((httpSecurityExceptionHandlingConfigurer) -> httpSecurityExceptionHandlingConfigurer
-                        .accessDeniedHandler(new CustomAccessDeniedHandler())
-                        .authenticationEntryPoint(new CustomAuthenticationEntryPoint()))
+                        .accessDeniedHandler(accessDeniedHandler())) //인가 핸들링(권한)
                 .addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(new ExceptionHandlerFilter(), JwtAuthenticationFilter.class) //ExceptionHandlerFilter필터를 앞에둬서 필터에서 예외처리
+
                 .build();
+
+
     }
     JwtAuthenticationFilter jwtAuthenticationFilter(){
-        return new JwtAuthenticationFilter(jwtProvider,redisUtil);
+        return new JwtAuthenticationFilter(jwtProvider);
     }
 
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
         return authenticationConfiguration.getAuthenticationManager();
+    }
+    @Bean // 추가 빈으로 등록
+    public AccessDeniedHandler accessDeniedHandler(){
+        return new CustomAccessDeniedHandler();
     }
 
     //BCcryt 암호화
@@ -63,3 +71,4 @@ public class SecurityConfig{
         return new BCryptPasswordEncoder();
     }
 }
+

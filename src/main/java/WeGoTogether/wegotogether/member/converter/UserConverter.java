@@ -1,10 +1,9 @@
-package WeGoTogether.wegotogether.converter;
+package WeGoTogether.wegotogether.member.converter;
 
-import WeGoTogether.wegotogether.domain.User;
-import WeGoTogether.wegotogether.security.JwtProvider;
-import WeGoTogether.wegotogether.web.dto.RefreshTokenRes;
-import WeGoTogether.wegotogether.web.dto.UserDtoReq;
-import WeGoTogether.wegotogether.web.dto.UserDtoRes;
+import WeGoTogether.wegotogether.member.dto.RefreshTokenRes;
+import WeGoTogether.wegotogether.member.dto.UserDtoReq;
+import WeGoTogether.wegotogether.member.dto.UserDtoRes;
+import WeGoTogether.wegotogether.member.model.User;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;

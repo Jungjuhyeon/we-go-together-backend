@@ -21,8 +21,10 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 
 
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Slf4j
 @RestControllerAdvice(annotations = {RestController.class})
@@ -43,16 +45,13 @@ public class ExceptionAdvice extends ResponseEntityExceptionHandler {
     @Override
     public ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException e, HttpHeaders headers, HttpStatusCode status, WebRequest request) {
 
-        Map<String, String> errors = new LinkedHashMap<>();
+        List<String> errors = e.getBindingResult().getFieldErrors().stream()
+                .map(fieldError -> Optional.ofNullable(fieldError.getDefaultMessage()).orElse(""))
+                .collect(Collectors.toList());
 
-        e.getBindingResult().getFieldErrors().stream()
-                .forEach(fieldError -> {
-                    String fieldName = fieldError.getField();
-                    String errorMessage = Optional.ofNullable(fieldError.getDefaultMessage()).orElse("");
-                    errors.merge(fieldName, errorMessage, (existingErrorMessage, newErrorMessage) -> existingErrorMessage + ", " + newErrorMessage);
-                });
+        String errorMessage = String.join(", ", errors);
 
-        return handleExceptionInternalArgs(e,HttpHeaders.EMPTY,ErrorStatus.valueOf("_BAD_REQUEST"),request,errors);
+        return handleExceptionInternalArgs(e,HttpHeaders.EMPTY,ErrorStatus.valueOf("_BAD_REQUEST"),request,errorMessage);
     }
 
     @org.springframework.web.bind.annotation.ExceptionHandler
@@ -97,8 +96,8 @@ public class ExceptionAdvice extends ResponseEntityExceptionHandler {
     }
 
     private ResponseEntity<Object> handleExceptionInternalArgs(Exception e, HttpHeaders headers, ErrorStatus errorCommonStatus,
-                                                               WebRequest request, Map<String, String> errorArgs) {
-        ApiResponse<Object> body = ApiResponse.onFailure(errorCommonStatus.getCode(),errorCommonStatus.getMessage(),errorArgs);
+                                                               WebRequest request, String errorArgs) {
+        ApiResponse<Object> body = ApiResponse.onFailure(errorCommonStatus.getCode(),errorArgs,null);
         return super.handleExceptionInternal(
                 e,
                 body,

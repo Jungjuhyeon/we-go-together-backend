@@ -1,6 +1,6 @@
 package WeGoTogether.wegotogether.security;
 
-import WeGoTogether.wegotogether.domain.User;
+import WeGoTogether.wegotogether.member.model.User;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

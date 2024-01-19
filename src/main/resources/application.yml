@@ -1,10 +1,23 @@
-
 spring:
   datasource:
-    url:
-    username:
-    password:
+    url: jdbc:mysql://localhost:3306/login
+    username: root
+    password: precioso119~
     driver-class-name: com.mysql.cj.jdbc.Driver
   sql:
     init:
       mode: never
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+        show_sql: true
+        format_sql: true
+        use_sql_comments: true
+        hbm2ddl:
+          auto: update
+        default_batch_fetch_size: 1000
+        server.port: 8080
+
+jwt:
+  secret_key: b3f003b8a358799d38b42f2b8f7738f84330e59705c91e94a6da7a11

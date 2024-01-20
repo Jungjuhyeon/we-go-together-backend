@@ -1,6 +1,6 @@
-package WeGoTogether.wegotogether.validation.validator;
+package WeGoTogether.wegotogether.user.validation.validator;
 
-import WeGoTogether.wegotogether.validation.annotation.ExistPhone;
+import WeGoTogether.wegotogether.user.validation.annotation.ExistPhone;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 

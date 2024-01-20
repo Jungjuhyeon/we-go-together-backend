@@ -1,6 +1,6 @@
-package WeGoTogether.wegotogether.web.dto;
+package WeGoTogether.wegotogether.user.dto;
 
-import WeGoTogether.wegotogether.validation.annotation.ExistPhone;
+import WeGoTogether.wegotogether.user.validation.annotation.ExistPhone;
 import com.sun.istack.NotNull;
 import lombok.Getter;
 import lombok.Setter;
@@ -17,9 +17,26 @@ public class UserRequestDTO {
         @Email
         String email;
         @NotBlank
+        String userId;
+        @NotBlank
         String password;
         @ExistPhone
         String phoneNum;
     }
 
+    @Getter
+    @Setter
+    public static class loginDTO{
+        @Email
+        String email;
+        @NotBlank
+        String password;
+    }
+
+    @Getter
+    @Setter
+    public static class findIdDTO{
+        @Email
+        String email;
+    }
 }

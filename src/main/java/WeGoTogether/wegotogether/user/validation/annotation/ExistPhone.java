@@ -1,6 +1,7 @@
-package WeGoTogether.wegotogether.validation.annotation;
+package WeGoTogether.wegotogether.user.validation.annotation;
 
-import WeGoTogether.wegotogether.validation.validator.PhoneValidator;
+
+import WeGoTogether.wegotogether.user.validation.validator.PhoneValidator;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;

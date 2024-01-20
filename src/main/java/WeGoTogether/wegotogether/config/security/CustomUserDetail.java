@@ -1,6 +1,6 @@
-package WeGoTogether.wegotogether.util;
+package WeGoTogether.wegotogether.config.security;
 
-import WeGoTogether.wegotogether.domain.User;
+import WeGoTogether.wegotogether.user.entity.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -9,6 +9,10 @@ import java.util.Collection;
 import java.util.Collections;
 
 import lombok.*;
+
+/** 스프링 시큐리티는 유저 인증 과정에서 UserDetails를 참조하여 인증을 진행.
+ * UserDetails을 User엔티티에서 상속하는 방법도 있지만 이는 좋지 않은 방법
+ */
 
 @RequiredArgsConstructor
 @Getter

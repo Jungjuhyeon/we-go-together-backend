@@ -1,4 +1,4 @@
-package WeGoTogether.wegotogether.domain;
+package WeGoTogether.wegotogether.user.entity;
 
 
 import WeGoTogether.wegotogether.domain.common.BaseEntity;
@@ -9,6 +9,7 @@ import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.DynamicInsert;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
 
@@ -28,6 +29,9 @@ public class User extends BaseEntity{
     private String email;
 
     @Column(nullable = false)
+    private String userId;
+
+    @Column(nullable = false)
     private String password;
 
     @Column(nullable = false)
@@ -40,5 +44,13 @@ public class User extends BaseEntity{
     @Enumerated(EnumType.STRING)
     @Column(columnDefinition = "VARCHAR(15) DEFAULT 'ROLE_USER'")
     public UserRole role;
+
+    private String refreshToken;  // 로그인 시 생성되는 refreshToken을 DB에 저장
+
+    private String verifiedCode;
+
+    private LocalDateTime verificationCodeGeneratedAt; // 인증번호 생성시간
+
+    private LocalDateTime verificationCodeExpiration;   // 인증번호 만료시간
 
 }

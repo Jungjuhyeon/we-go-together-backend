@@ -1,8 +1,10 @@
-package WeGoTogether.wegotogether.util;
+package WeGoTogether.wegotogether.config.security;
 
+import WeGoTogether.wegotogether.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -10,8 +12,14 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-@RequiredArgsConstructor
+/**
+ * 스프링 시큐리티는 각각의 역할에 맞는 작업을 처리하는 여러개의 필터들이
+ * 체인 형태로 구성되어 순서에 따라 순차적으로 수행
+ * 그 중 UsernamePasswordAuthenticationFilter가 인증처리를 담당
+ */
+
 @EnableWebSecurity
+@RequiredArgsConstructor
 @Slf4j
 public class SecurityConfig extends WebSecurityConfigurerAdapter{
 
@@ -46,7 +54,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider),
-                 UsernamePasswordAuthenticationFilter.class); // JwtAuthenticationFilter를 UsernamePasswordAuthenticationFilter 전에 넣는다
+                        UsernamePasswordAuthenticationFilter.class); // JwtAuthenticationFilter를 UsernamePasswordAuthenticationFilter 전에 넣는다
 
     }
 
@@ -56,4 +64,3 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
     }
 
 }
-

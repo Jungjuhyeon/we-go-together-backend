@@ -39,7 +39,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         // 헤더에서 JWT 를 받아옵니다.
         String accessToken = jwtTokenProvider.resolveToken();
-        String refreshToken = jwtTokenProvider.resolveRefreshToken();
 
         // accessToken 검사.
         if (accessToken != null) {
@@ -49,8 +48,12 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
                 SecurityContextHolder.getContext().setAuthentication(auth);
             }
+
             // 어세스 토큰이 만료 & 리프레시 토큰 또한 존재하는 상황
-            else if (!jwtTokenProvider.validateToken(accessToken) && refreshToken != null) {    // 재발급 후, 컨텍스트에 다시 넣기
+            //else if (!jwtTokenProvider.validateToken(accessToken)) {    // 재발급 후, 컨텍스트에 다시 넣기
+            else {
+                String refreshToken = jwtTokenProvider.resolveRefreshToken();
+
                 // refreshToken 존재유무 확인
                 boolean isRefreshToken = jwtTokenProvider.existRefreshToken(refreshToken);
                 // refreshToken 검증

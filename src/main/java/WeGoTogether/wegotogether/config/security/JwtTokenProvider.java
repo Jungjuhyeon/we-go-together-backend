@@ -77,9 +77,13 @@ public class JwtTokenProvider {
         return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
     }
 
-    // 토큰에 담겨 있는 회원 정보 추출
+    // 토큰에 담겨 있는 회원 이메일 정보 추출
     public String getUserEmail(String token) {
         return Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody().getSubject();
+        /**
+         * .parseClaimsJws(token) : 토큰을 파싱하여 클레임을 얻고
+         * .getBody().getSubject() 를 통해 subject에 해당하는 클레임을 가져와 사용자 이메일을 반환
+         */
     }
 
     // Request의 Header에서 token 값을 가져옵니다. "authorization" : "token'

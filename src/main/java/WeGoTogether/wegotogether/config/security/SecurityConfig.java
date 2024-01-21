@@ -39,7 +39,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
                 .authorizeRequests()// 요청에 대한 사용권한 체크
 
                 //회원관련 api는 비밀번호 재설정 빼고는 토큰 필요 x
-                .antMatchers("users/password-restore").hasRole("USER")
+//                .antMatchers("/users/password-restore").hasRole("USER")
                 .antMatchers("/users/**").permitAll()   // 누구나 접근이 가능하게 설정
                 // /admin으로 시작하는 요청은 ADMIN 권한이 있는 유저에게만 허용
                 .antMatchers("/admin/**").hasRole("ADMIN")

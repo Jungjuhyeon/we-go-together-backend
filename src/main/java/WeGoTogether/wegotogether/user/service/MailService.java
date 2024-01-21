@@ -50,6 +50,8 @@ public class MailService {
 
         // 입력된 메일이 존재하는 계정이라면
         if (userRepository.findByEmail(mail).isPresent()){
+
+            // SimpleMailMessage는 텍스트 데이터만 전송 가능
             SimpleMailMessage message = CreateMail(mail);
 
             javaMailSender.send(message);

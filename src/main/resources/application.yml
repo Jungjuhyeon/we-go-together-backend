@@ -20,4 +20,4 @@ spring:
         server.port: 8080
 
 jwt:
-  secret_key: b3f003b8a358799d38b42f2b8f7738f84330e59705c91e94a6da7a11
+  secret: c3ByaW5nLWJvb3Qtc2VjdXJpdHktand0LXR1dG9yaWFsLWppd29vbi1zcHJpbmctYm9vdC1zZWN1cml0eS1qd3QtdHV0b3JpYWwK
